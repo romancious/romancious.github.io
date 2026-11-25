@@ -1,0 +1,985 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>溏心volg - 慢生活影像日记 | 记录每一帧温柔日常</title>
+<meta name="description" content="溏心volg 是一个专注慢生活影像日记的视频品牌，用镜头记录真实、温柔、有温度的日常片段，与社区创作者一起分享生活里的溏心时刻。">
+<style>
+  :root{
+    --yolk:#f5b942;
+    --yolk-deep:#e09a1f;
+    --yolk-soft:#fdf3dc;
+    --cream:#fffaf0;
+    --ink:#2b2620;
+    --ink-soft:#6b6154;
+    --line:#eadfcb;
+    --white:#ffffff;
+    --shadow:0 18px 40px -18px rgba(120,96,40,.35);
+    --radius:22px;
+    --font-cn:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--font-cn);
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  ul{list-style:none;}
+  .wrap{width:min(1180px,92vw);margin:0 auto;}
+  .tag{
+    display:inline-block;
+    background:var(--yolk-soft);
+    color:var(--yolk-deep);
+    font-size:.78rem;
+    letter-spacing:.14em;
+    padding:.35em 1em;
+    border-radius:999px;
+    border:1px solid #f3e2b8;
+    font-weight:600;
+  }
+  section{position:relative;}
+
+  /* ============ 顶部导航 ============ */
+  header.nav{
+    position:sticky;top:0;z-index:80;
+    background:rgba(255,250,240,.86);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    height:72px;gap:24px;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.22rem;letter-spacing:.02em;}
+  .logo .dot{
+    width:30px;height:30px;border-radius:50%;
+    background:radial-gradient(circle at 35% 32%,#ffe9a8,#f5b942 55%,#e09a1f);
+    box-shadow:inset -3px -4px 6px rgba(180,120,10,.35),0 4px 10px -3px rgba(224,154,31,.7);
+    animation:pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+  .logo small{font-size:.62rem;letter-spacing:.28em;color:var(--ink-soft);display:block;font-weight:500;line-height:1;}
+  nav.links{display:flex;gap:30px;font-size:.94rem;font-weight:500;color:var(--ink-soft);}
+  nav.links a{position:relative;padding:4px 0;transition:color .25s;}
+  nav.links a::after{
+    content:"";position:absolute;left:0;bottom:0;height:2px;width:0;
+    background:var(--yolk);transition:width .3s;border-radius:2px;
+  }
+  nav.links a:hover{color:var(--ink);}
+  nav.links a:hover::after{width:100%;}
+  .nav-cta{
+    background:var(--ink);color:var(--cream);
+    padding:.62em 1.35em;border-radius:999px;font-size:.88rem;font-weight:600;
+    transition:transform .25s,background .25s,box-shadow .25s;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--yolk-deep);transform:translateY(-2px);box-shadow:0 12px 22px -12px rgba(224,154,31,.9);}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;}
+  .burger span{width:22px;height:2px;background:var(--ink);border-radius:2px;transition:.3s;}
+
+  /* ============ Hero ============ */
+  .hero{
+    padding:72px 0 40px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;right:-160px;top:-120px;width:520px;height:520px;
+    background:radial-gradient(circle,rgba(245,185,66,.28),transparent 68%);
+    border-radius:50%;z-index:-1;
+  }
+  .hero::after{
+    content:"";position:absolute;left:-200px;bottom:-220px;width:480px;height:480px;
+    background:radial-gradient(circle,rgba(245,185,66,.16),transparent 70%);
+    border-radius:50%;z-index:-1;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;}
+  .hero h1{
+    font-size:clamp(2.6rem,5.6vw,4.4rem);
+    line-height:1.08;
+    letter-spacing:-.02em;
+    font-weight:900;
+    margin:20px 0 18px;
+  }
+  .hero h1 .hl{
+    position:relative;display:inline-block;color:var(--yolk-deep);
+  }
+  .hero h1 .hl::after{
+    content:"";position:absolute;left:0;right:0;bottom:6px;height:14px;
+    background:rgba(245,185,66,.35);border-radius:6px;z-index:-1;
+  }
+  .hero p.lead{
+    font-size:1.06rem;color:var(--ink-soft);max-width:30em;margin-bottom:32px;
+  }
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
+  .btn-primary{
+    background:linear-gradient(135deg,var(--yolk),var(--yolk-deep));
+    color:#fff;padding:.9em 2em;border-radius:999px;font-weight:700;
+    box-shadow:0 16px 30px -14px rgba(224,154,31,.95);
+    transition:transform .25s,box-shadow .25s;
+  }
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 22px 36px -14px rgba(224,154,31,.95);}
+  .btn-ghost{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:.85em 1.6em;border-radius:999px;border:1.5px solid var(--line);
+    font-weight:600;font-size:.95rem;color:var(--ink);transition:.25s;background:var(--white);
+  }
+  .btn-ghost:hover{border-color:var(--yolk);color:var(--yolk-deep);transform:translateY(-2px);}
+  .btn-ghost .play{
+    width:26px;height:26px;border-radius:50%;background:var(--yolk-soft);
+    display:grid;place-items:center;color:var(--yolk-deep);font-size:.7rem;
+  }
+  .hero-stats{display:flex;gap:34px;margin-top:42px;flex-wrap:wrap;}
+  .hero-stats .stat b{font-size:1.7rem;font-weight:900;letter-spacing:-.02em;display:block;line-height:1.2;}
+  .hero-stats .stat span{font-size:.82rem;color:var(--ink-soft);letter-spacing:.06em;}
+
+  /* Hero visual: player card */
+  .player-card{
+    position:relative;background:var(--white);border-radius:28px;
+    box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--line);
+    transform:rotate(-1.4deg);
+    transition:transform .5s;
+  }
+  .player-card:hover{transform:rotate(0deg) translateY(-4px);}
+  .player-frame{position:relative;aspect-ratio:16/10;background:#1d1a16;overflow:hidden;}
+  .player-frame svg{width:100%;height:100%;}
+  .player-play{
+    position:absolute;inset:0;display:grid;place-items:center;cursor:pointer;
+  }
+  .player-play .circle{
+    width:76px;height:76px;border-radius:50%;background:rgba(255,255,255,.92);
+    display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.3);
+    transition:transform .3s,background .3s;
+  }
+  .player-play:hover .circle{transform:scale(1.1);background:#fff;}
+  .player-play .circle::after{
+    content:"";border-style:solid;border-width:11px 0 11px 18px;
+    border-color:transparent transparent transparent #2b2620;
+    margin-left:5px;
+  }
+  .player-meta{padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .player-meta h3{font-size:1rem;font-weight:700;}
+  .player-meta p{font-size:.8rem;color:var(--ink-soft);}
+  .player-meta .badge{
+    background:var(--yolk-soft);color:var(--yolk-deep);font-size:.72rem;
+    padding:.35em .9em;border-radius:999px;font-weight:700;white-space:nowrap;
+  }
+  .float-chip{
+    position:absolute;background:var(--white);border-radius:16px;padding:12px 16px;
+    box-shadow:var(--shadow);border:1px solid var(--line);font-size:.8rem;font-weight:600;
+    display:flex;align-items:center;gap:8px;animation:bob 5s ease-in-out infinite;
+  }
+  .float-chip .ic{width:26px;height:26px;border-radius:50%;background:var(--yolk-soft);display:grid;place-items:center;color:var(--yolk-deep);font-size:.8rem;}
+  .chip-a{right:-14px;top:26px;animation-delay:.4s;}
+  .chip-b{left:-18px;bottom:48px;animation-delay:1.2s;}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+  /* ============ 品牌条 ============ */
+  .strip{
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--white);padding:22px 0;overflow:hidden;
+  }
+  .strip-inner{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between;}
+  .strip .label{font-size:.78rem;letter-spacing:.22em;color:var(--ink-soft);font-weight:600;}
+  .strip .pills{display:flex;gap:10px;flex-wrap:wrap;}
+  .strip .pills span{
+    font-size:.82rem;padding:.4em 1em;border-radius:999px;border:1px dashed var(--line);
+    color:var(--ink-soft);transition:.25s;
+  }
+  .strip .pills span:hover{border-color:var(--yolk);color:var(--yolk-deep);background:var(--yolk-soft);}
+
+  /* ============ 通用区块标题 ============ */
+  .sec{padding:88px 0;}
+  .sec-head{max-width:640px;margin-bottom:48px;}
+  .sec-head h2{
+    font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:900;letter-spacing:-.02em;
+    line-height:1.2;margin:16px 0 14px;
+  }
+  .sec-head p{color:var(--ink-soft);font-size:1rem;}
+
+  /* ============ 视频日记网格 ============ */
+  .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .vcard{
+    background:var(--white);border-radius:var(--radius);overflow:hidden;
+    border:1px solid var(--line);box-shadow:0 6px 18px -14px rgba(120,96,40,.5);
+    transition:transform .35s,box-shadow .35s;display:flex;flex-direction:column;
+  }
+  .vcard:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+  .vthumb{position:relative;aspect-ratio:16/10;overflow:hidden;background:#efe7d6;}
+  .vthumb svg{width:100%;height:100%;transition:transform .6s;}
+  .vcard:hover .vthumb svg{transform:scale(1.06);}
+  .vthumb .dur{
+    position:absolute;right:10px;bottom:10px;background:rgba(29,26,22,.82);
+    color:#fff;font-size:.7rem;padding:.2em .6em;border-radius:6px;font-weight:600;
+  }
+  .vthumb .cat{
+    position:absolute;left:10px;top:10px;background:rgba(255,255,255,.94);
+    color:var(--yolk-deep);font-size:.7rem;font-weight:700;padding:.28em .8em;border-radius:999px;
+  }
+  .vbody{padding:18px 20px 20px;flex:1;display:flex;flex-direction:column;gap:10px;}
+  .vbody h3{font-size:1.04rem;font-weight:700;line-height:1.5;}
+  .vbody p{font-size:.86rem;color:var(--ink-soft);flex:1;}
+  .vfoot{display:flex;align-items:center;justify-content:space-between;font-size:.78rem;color:var(--ink-soft);}
+  .vfoot .author{display:flex;align-items:center;gap:7px;}
+  .av{
+    width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
+    font-size:.6rem;font-weight:800;color:#fff;background:var(--yolk-deep);
+  }
+  .av.g2{background:#8aa27a;}
+  .av.g3{background:#c98b6b;}
+  .av.g4{background:#7d8fb0;}
+  .av.g5{background:#b080b0;}
+  .av.g6{background:#6fa6a6;}
+  .vfoot .views{opacity:.8;}
+
+  /* ============ 特色/理念 ============ */
+  .philosophy{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .phil-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .phil{
+    padding:34px 28px;border-radius:var(--radius);background:var(--cream);
+    border:1px solid var(--line);position:relative;overflow:hidden;transition:.35s;
+  }
+  .phil:hover{transform:translateY(-6px);border-color:#f3e2b8;box-shadow:var(--shadow);}
+  .phil .num{
+    font-size:3.2rem;font-weight:900;color:rgba(245,185,66,.35);line-height:1;
+    letter-spacing:-.04em;margin-bottom:6px;
+  }
+  .phil h3{font-size:1.12rem;font-weight:800;margin-bottom:10px;}
+  .phil p{font-size:.9rem;color:var(--ink-soft);}
+  .phil .ico{
+    width:44px;height:44px;border-radius:14px;background:var(--yolk-soft);
+    display:grid;place-items:center;margin-bottom:18px;color:var(--yolk-deep);
+  }
+
+  /* ============ 创作者/社区 ============ */
+  .creators-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .creator{
+    text-align:center;background:var(--white);border:1px solid var(--line);
+    border-radius:var(--radius);padding:28px 18px 24px;transition:.35s;
+  }
+  .creator:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:#f3e2b8;}
+  .creator .bigav{
+    width:72px;height:72px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;
+    font-size:1.3rem;font-weight:800;color:#fff;position:relative;
+    background:linear-gradient(135deg,var(--yolk),var(--yolk-deep));
+  }
+  .creator:nth-child(2) .bigav{background:linear-gradient(135deg,#9db98b,#6f8f5c);}
+  .creator:nth-child(3) .bigav{background:linear-gradient(135deg,#dfa08a,#c0735c);}
+  .creator:nth-child(4) .bigav{background:linear-gradient(135deg,#93a8cc,#6b82a8);}
+  .creator .bigav::after{
+    content:"";position:absolute;inset:-5px;border-radius:50%;border:2px dashed rgba(245,185,66,.5);
+  }
+  .creator h3{font-size:.98rem;font-weight:800;margin-bottom:4px;}
+  .creator .role{font-size:.78rem;color:var(--yolk-deep);font-weight:700;letter-spacing:.06em;margin-bottom:8px;}
+  .creator p{font-size:.8rem;color:var(--ink-soft);line-height:1.65;}
+
+  /* ============ 数据带 ============ */
+  .metrics{background:var(--ink);color:var(--cream);border-radius:32px;padding:52px 40px;margin:0 auto;}
+  .metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;text-align:center;}
+  .metric b{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:900;display:block;line-height:1.2;color:var(--yolk);letter-spacing:-.02em;}
+  .metric span{font-size:.86rem;opacity:.7;letter-spacing:.08em;}
+
+  /* ============ 播放列表 / 时间轴 ============ */
+  .timeline{display:flex;flex-direction:column;gap:0;position:relative;}
+  .tl-item{
+    display:grid;grid-template-columns:130px 1fr;gap:26px;padding:24px 0;
+    border-bottom:1px dashed var(--line);align-items:start;
+  }
+  .tl-item:last-child{border-bottom:none;}
+  .tl-date{font-size:.82rem;color:var(--yolk-deep);font-weight:700;letter-spacing:.06em;padding-top:4px;}
+  .tl-body{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap;}
+  .tl-body h3{font-size:1.05rem;font-weight:700;margin-bottom:6px;}
+  .tl-body p{font-size:.88rem;color:var(--ink-soft);max-width:52ch;}
+  .tl-tag{
+    font-size:.74rem;background:var(--yolk-soft);color:var(--yolk-deep);
+    padding:.3em .9em;border-radius:999px;font-weight:700;white-space:nowrap;
+  }
+
+  /* ============ 合作品牌 ============ */
+  .partners{background:var(--white);border-top:1px solid var(--line);}
+  .partner-logos{
+    display:grid;grid-template-columns:repeat(6,1fr);gap:16px;align-items:center;
+  }
+  .plogo{
+    height:74px;border-radius:16px;border:1px dashed var(--line);
+    display:grid;place-items:center;font-weight:700;color:var(--ink-soft);
+    font-size:.88rem;letter-spacing:.06em;transition:.3s;text-align:center;padding:8px;
+  }
+  .plogo:hover{background:var(--yolk-soft);border-color:#f3e2b8;color:var(--yolk-deep);}
+
+  /* ============ 加入社区 CTA ============ */
+  .join{
+    background:linear-gradient(140deg,#fff3d4,#fde7b8);
+    border-radius:36px;padding:64px 48px;text-align:center;position:relative;overflow:hidden;
+    border:1px solid #f5e0b0;
+  }
+  .join::before{
+    content:"";position:absolute;width:340px;height:340px;border-radius:50%;
+    background:radial-gradient(circle,rgba(224,154,31,.28),transparent 70%);
+    top:-150px;right:-110px;
+  }
+  .join::after{
+    content:"";position:absolute;width:260px;height:260px;border-radius:50%;
+    background:radial-gradient(circle,rgba(224,154,31,.2),transparent 70%);
+    bottom:-130px;left:-80px;
+  }
+  .join h2{font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:900;letter-spacing:-.02em;margin-bottom:14px;position:relative;}
+  .join p{color:var(--ink-soft);max-width:46ch;margin:0 auto 30px;position:relative;}
+  .join form{display:flex;gap:12px;max-width:460px;margin:0 auto;position:relative;flex-wrap:wrap;justify-content:center;}
+  .join input{
+    flex:1;min-width:220px;padding:.9em 1.3em;border-radius:999px;border:1.5px solid #e8d3a0;
+    background:var(--white);font-size:.94rem;font-family:inherit;outline:none;transition:.25s;
+  }
+  .join input:focus{border-color:var(--yolk-deep);box-shadow:0 0 0 4px rgba(245,185,66,.22);}
+  .join button{
+    padding:.9em 2em;border-radius:999px;border:none;cursor:pointer;
+    background:var(--ink);color:var(--cream);font-weight:700;font-size:.94rem;
+    font-family:inherit;transition:.25s;white-space:nowrap;
+  }
+  .join button:hover{background:var(--yolk-deep);transform:translateY(-2px);}
+  .join .msg{font-size:.82rem;margin-top:16px;min-height:1.2em;color:var(--yolk-deep);font-weight:600;position:relative;}
+
+  /* ============ 页脚 ============ */
+  footer{background:var(--ink);color:rgba(255,250,240,.78);padding:64px 0 32px;margin-top:88px;}
+  .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:40px;}
+  .foot-brand .logo{color:var(--cream);margin-bottom:16px;}
+  .foot-brand p{font-size:.86rem;line-height:1.8;max-width:30ch;opacity:.75;}
+  .foot-col h4{color:var(--cream);font-size:.92rem;margin-bottom:16px;letter-spacing:.06em;}
+  .foot-col ul li{margin-bottom:10px;}
+  .foot-col ul li a{font-size:.86rem;opacity:.72;transition:.25s;}
+  .foot-col ul li a:hover{opacity:1;color:var(--yolk);}
+  .foot-social{display:flex;gap:12px;margin-top:16px;}
+  .foot-social a{
+    width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);
+    display:grid;place-items:center;font-size:.8rem;font-weight:700;transition:.25s;
+  }
+  .foot-social a:hover{background:var(--yolk);color:var(--ink);transform:translateY(-3px);}
+  .foot-bottom{
+    border-top:1px solid rgba(255,255,255,.1);margin-top:44px;padding-top:24px;
+    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    font-size:.78rem;opacity:.6;
+  }
+
+  /* ============ 滚动出现动画 ============ */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* ============ 响应式 ============ */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr;gap:44px;}
+    .player-card{transform:none;}
+    .video-grid{grid-template-columns:repeat(2,1fr);}
+    .phil-grid{grid-template-columns:1fr;}
+    .creators-grid{grid-template-columns:repeat(2,1fr);}
+    .metrics-grid{grid-template-columns:repeat(2,1fr);gap:34px;}
+    .partner-logos{grid-template-columns:repeat(3,1fr);}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    nav.links{display:none;}
+    .burger{display:flex;}
+    nav.links.open{
+      display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;
+      background:var(--cream);padding:20px 6vw;gap:18px;border-bottom:1px solid var(--line);
+      box-shadow:0 18px 30px -20px rgba(0,0,0,.3);
+    }
+  }
+  @media (max-width:640px){
+    .sec{padding:60px 0;}
+    .hero{padding:48px 0 24px;}
+    .video-grid{grid-template-columns:1fr;}
+    .creators-grid{grid-template-columns:1fr 1fr;}
+    .metrics{padding:38px 22px;border-radius:24px;}
+    .metrics-grid{grid-template-columns:1fr 1fr;}
+    .partner-logos{grid-template-columns:repeat(2,1fr);}
+    .join{padding:46px 24px;border-radius:26px;}
+    .tl-item{grid-template-columns:1fr;gap:6px;}
+    .foot-grid{grid-template-columns:1fr;}
+    .hero-stats{gap:24px;}
+    .float-chip{display:none;}
+  }
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="logo">
+      <span class="dot"></span>
+      <span>溏心volg<small>SLOW VIDEO DIARY</small></span>
+    </a>
+    <nav class="links" id="navLinks">
+      <a href="#diary">影像日记</a>
+      <a href="#philosophy">创作理念</a>
+      <a href="#creators">创作者</a>
+      <a href="#timeline">更新动态</a>
+      <a href="#partners">品牌合作</a>
+    </nav>
+    <a href="#join" class="nav-cta">加入社区</a>
+    <button class="burger" id="burger" aria-label="展开菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="tag">慢生活 · 影像日记</span>
+      <h1>把日子过成<br><span class="hl">溏心</span>的模样</h1>
+      <p class="lead">
+        溏心volg 是一个专注慢生活影像日记的视频品牌。我们相信真实的生活不需要滤镜加持，
+        每一段温柔的日常都值得被认真记录。这里聚集着一群热爱生活的创作者，
+        用镜头留住那些刚刚好的、溏心般的时刻。
+      </p>
+      <div class="hero-actions">
+        <a href="#diary" class="btn-primary">开始观看</a>
+        <a href="#join" class="btn-ghost"><span class="play">▶</span>加入创作社区</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b>1,280+</b><span>影像日记作品</span></div>
+        <div class="stat"><b>36.5万</b><span>社区创作者</span></div>
+        <div class="stat"><b>4,900万</b><span>累计温柔播放</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="player-card">
+        <div class="player-frame">
+          <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#f8d98b"/>
+                <stop offset=".55" stop-color="#f3c06a"/>
+                <stop offset="1" stop-color="#e8a25a"/>
+              </linearGradient>
+              <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#8c9a6a"/>
+                <stop offset="1" stop-color="#5f6e47"/>
+              </linearGradient>
+              <radialGradient id="sun" cx=".5" cy=".5" r=".5">
+                <stop offset="0" stop-color="#fff6d8"/>
+                <stop offset=".6" stop-color="#ffd97a"/>
+                <stop offset="1" stop-color="#f5b942" stop-opacity=".2"/>
+              </radialGradient>
+            </defs>
+            <rect width="640" height="400" fill="url(#sky)"/>
+            <circle cx="470" cy="140" r="82" fill="url(#sun)" opacity=".95"/>
+            <circle cx="470" cy="140" r="42" fill="#fff3cf" opacity=".9"/>
+            <path d="M0 290 Q120 235 250 268 T520 250 T640 272 V400 H0 Z" fill="url(#ground)"/>
+            <path d="M0 320 Q160 280 300 305 T640 300 V400 H0 Z" fill="#6b7a50" opacity=".85"/>
+            <g opacity=".9">
+              <ellipse cx="140" cy="322" rx="46" ry="10" fill="#4c5a38" opacity=".5"/>
+              <rect x="132" y="250" width="10" height="72" rx="4" fill="#4c5a38"/>
+              <circle cx="137" cy="244" r="30" fill="#5f7a45"/>
+              <circle cx="118" cy="258" r="20" fill="#6b8650"/>
+              <circle cx="156" cy="260" r="18" fill="#69824d"/>
+            </g>
+            <g opacity=".85">
+              <ellipse cx="520" cy="338" rx="56" ry="11" fill="#4c5a38" opacity=".45"/>
+              <rect x="512" y="262" width="12" height="76" rx="5" fill="#4c5a38"/>
+              <circle cx="518" cy="252" r="36" fill="#5a7242"/>
+              <circle cx="494" cy="268" r="22" fill="#66804b"/>
+              <circle cx="542" cy="270" r="20" fill="#637c47"/>
+            </g>
+            <g opacity=".55">
+              <path d="M60 85 q10 -22 24 0 q14 -22 24 0" stroke="#fff8e4" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <path d="M320 60 q9 -18 20 0 q11 -18 20 0" stroke="#fff8e4" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            </g>
+            <rect x="0" y="0" width="640" height="400" fill="#2b2620" opacity=".06"/>
+          </svg>
+          <div class="player-play" id="heroPlay" role="button" aria-label="播放宣传片"><div class="circle"></div></div>
+        </div>
+        <div class="player-meta">
+          <div>
+            <h3>《一碗溏心蛋的早晨》</h3>
+            <p>Episode 042 · 慢生活影像日记</p>
+          </div>
+          <span class="badge">本周精选</span>
+        </div>
+      </div>
+      <div class="float-chip chip-a"><span class="ic">♥</span> 12,480 人喜欢</div>
+      <div class="float-chip chip-b"><span class="ic">◷</span> 04:32 温柔慢放</div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap strip-inner">
+    <span class="label">近期主题</span>
+    <div class="pills">
+      <span># 一屋两人三餐</span>
+      <span># 晨光与咖啡</span>
+      <span># 城市漫步</span>
+      <span># 手作料理</span>
+      <span># 四季小事</span>
+      <span># 独处的温柔</span>
+    </div>
+  </div>
+</div>
+
+<section class="sec" id="diary">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">影像日记</span>
+      <h2>那些刚刚好的<br>溏心时刻</h2>
+      <p>每一支短片都是一段真实生活的切片。没有刻意编排，只有被温柔记录的日常。</p>
+    </div>
+
+    <div class="video-grid">
+      <article class="vcard reveal">
+        <div class="vthumb">
+          <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="250" fill="#f6e2b8"/>
+            <circle cx="300" cy="70" r="48" fill="#f5b942" opacity=".65"/>
+            <rect x="48" y="128" width="304" height="76" rx="10" fill="#e7caa0"/>
+            <circle cx="150" cy="140" r="26" fill="#fff8e8"/>
+            <circle cx="150" cy="140" r="12" fill="#f5b942"/>
+            <rect x="200" y="112" width="22" height="52" rx="6" fill="#c9a878"/>
+            <path d="M222 122 q20 0 20 16 q0 16 -20 16" stroke="#c9a878" stroke-width="6" fill="none"/>
+            <rect x="0" y="204" width="400" height="46" fill="#d8b98d"/>
+          </svg>
+          <span class="cat">早餐日记</span>
+          <span class="dur">04:32</span>
+        </div>
+        <div class="vbody">
+          <h3>一碗溏心蛋的早晨</h3>
+          <p>六点四十分，水汽从锅里升起来，蛋黄刚好流动。这是属于一个人的安静开场。</p>
+          <div class="vfoot">
+            <span class="author"><span class="av">林</span>林小满</span>
+            <span class="views">12.4k 播放</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="vcard reveal">
+        <div class="vthumb">
+          <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="250" fill="#d9e3cf"/>
+            <circle cx="90" cy="60" r="40" fill="#9db98b" opacity=".7"/>
+            <path d="M0 190 Q100 140 200 175 T400 160 V250 H0 Z" fill="#7f9a6b"/>
+            <rect x="170" y="96" width="60" height="90" rx="8" fill="#fffaf0"/>
+            <rect x="184" y="112" width="32" height="26" rx="4" fill="#b8cfa8"/>
+            <path d="M120 210 l40 -44 l30 32 l46 -54 l44 66 Z" fill="#5c7548" opacity=".7"/>
+          </svg>
+          <span class="cat">城市漫步</span>
+          <span class="dur">06:18</span>
+        </div>
+        <div class="vbody">
+          <h3>走完这条街，春天就来了</h3>
+          <p>没有目的地的散步，在旧书店门口停下来，风把花瓣吹进翻开的书页里。</p>
+          <div class="vfoot">
+            <span class="author"><span class="av g2">陈</span>陈屿</span>
+            <span class="views">9.8k 播放</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="vcard reveal">
+        <div class="vthumb">
+          <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="250" fill="#ece1d4"/>
+            <rect x="0" y="170" width="400" height="80" fill="#c9b7a2"/>
+            <ellipse cx="200" cy="172" rx="120" ry="14" fill="#e6d7c6"/>
+            <rect x="150" y="120" width="100" height="56" rx="8" fill="#fffaf0"/>
+            <rect x="162" y="132" width="76" height="22" rx="4" fill="#e0c8a8"/>
+            <circle cx="200" cy="96" r="16" fill="#f5b942"/>
+            <path d="M200 112 v8" stroke="#c9a878" stroke-width="3"/>
+          </svg>
+          <span class="cat">手作料理</span>
+          <span class="dur">08:05</span>
+        </div>
+        <div class="vbody">
+          <h3>周末午后，烤一盘焦糖布丁</h3>
+          <p>糖在锅里慢慢变成琥珀色，那种香气会把整个屋子都变软。</p>
+          <div class="vfoot">
+            <span class="author"><span class="av g3">苏</span>苏禾</span>
+            <span class="views">15.2k 播放</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="vcard reveal">
+        <div class="vthumb">
+          <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="250" fill="#cfd8e8"/>
+            <circle cx="310" cy="58" r="34" fill="#eef2fa" opacity=".9"/>
+            <circle cx="90" cy="72" r="28" fill="#eef2fa" opacity=".7"/>
+            <path d="M0 186 Q100 168 200 182 T400 172 V250 H0 Z" fill="#8ea3bf"/>
+            <rect x="0" y="210" width="400" height="40" fill="#7389a8"/>
+            <path d="M140 196 l20 -36 l20 36 Z" fill="#fffaf0"/>
+          </svg>
+          <span class="cat">独处时光</span>
+          <span class="dur">05:44</span>
+        </div>
+        <div class="vbody">
+          <h3>一个人看了一场很慢的雨</h3>
+          <p>把窗打开一条缝，听雨落在铁皮棚上，像整座城市在轻声说话。</p>
+          <div class="vfoot">
+            <span class="author"><span class="av g4">周</span>周予安</span>
+            <span class="views">7.6k 播放</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="vcard reveal">
+        <div class="vthumb">
+          <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="250" fill="#f2e0d2"/>
+            <rect x="0" y="0" width="400" height="250" fill="url(#none)"/>
+            <circle cx="120" cy="90" r="42" fill="#e8b48c" opacity=".7"/>
+            <rect x="90" y="130" width="220" height="80" rx="12" fill="#fffaf0"/>
+            <rect x="110" y="148" width="60" height="44" rx="6" fill="#e8d3c0"/>
+            <rect x="188" y="148" width="44" height="44" rx="6" fill="#d9bfa8"/>
+            <circle cx="280" cy="168" r="22" fill="#f5b942"/>
+          </svg>
+          <span class="cat">四季小事</span>
+          <span class="dur">07:12</span>
+        </div>
+        <div class="vbody">
+          <h3>把秋天的阳光收进罐子里</h3>
+          <p>晒橘皮、晒被子、晒那些过时不候的好心情。傍晚收进来的时候都是暖的。</p>
+          <div class="vfoot">
+            <span class="author"><span class="av g5">许</span>许知夏</span>
+            <span class="views">18.9k 播放</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="vcard reveal">
+        <div class="vthumb">
+          <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="250" fill="#d6e4e2"/>
+            <path d="M0 175 Q90 120 190 162 T400 148 V250 H0 Z" fill="#8fb3ad"/>
+            <rect x="0" y="200" width="400" height="50" fill="#6d928c"/>
+            <circle cx="200" cy="86" r="30" fill="#f5d98a"/>
+            <rect x="184" y="118" width="32" height="60" rx="6" fill="#fffaf0" opacity=".9"/>
+            <path d="M60 210 q30 -18 60 0" stroke="#fffaf0" stroke-width="4" fill="none" opacity=".7"/>
+          </svg>
+          <span class="cat">晨光咖啡</span>
+          <span class="dur">03:56</span>
+        </div>
+        <div class="vbody">
+          <h3>磨豆的声音比闹钟温柔</h3>
+          <p>一杯手冲需要三分多钟，刚好够让心跳从睡梦里慢慢醒过来。</p>
+          <div class="vfoot">
+            <span class="author"><span class="av g6">何</span>何夕</span>
+            <span class="views">11.1k 播放</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec philosophy" id="philosophy">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">创作理念</span>
+      <h2>真实，是我们唯一的滤镜</h2>
+      <p>溏心volg 不追逐爆款的节奏，我们更在意一支短片能不能让人在看完之后，长舒一口气。</p>
+    </div>
+    <div class="phil-grid">
+      <div class="phil reveal">
+        <div class="ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <rect x="2" y="6" width="14" height="12" rx="3"/><path d="M16 10l6-3v10l-6-3"/>
+          </svg>
+        </div>
+        <div class="num">01</div>
+        <h3>记录，而不是表演</h3>
+        <p>镜头对准的是真实发生的日常：没有台词的早餐、突然下起的雨、猫跳上窗台的一瞬。生活本身已经足够好看，我们只负责把它留住。</p>
+      </div>
+      <div class="phil reveal">
+        <div class="ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M12 21s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 11c0 5.5-7 10-7 10z"/>
+          </svg>
+        </div>
+        <div class="num">02</div>
+        <h3>慢一点，再慢一点</h3>
+        <p>我们偏爱长镜头、环境声和留白。一支四分钟的短片，可能需要一整天的等待，只为拍到那束刚好落进窗子的光。</p>
+      </div>
+      <div class="phil reveal">
+        <div class="ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M15 20c0-2.2 1.3-4 3.5-4S22 17.8 22 20"/>
+          </svg>
+        </div>
+        <div class="num">03</div>
+        <h3>一起创作，才温暖</h3>
+        <p>社区里的每一位创作者都能在这里发布属于自己的影像日记。我们提供模板、曲库与调色预设，让记录变得更容易，也更有归属感。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="creators">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">社区创作者</span>
+      <h2>把生活拍成诗的人</h2>
+      <p>他们来自不同的城市，做着不同的事，却都用镜头保存着相似的温柔。</p>
+    </div>
+    <div class="creators-grid">
+      <div class="creator reveal">
+        <div class="bigav">林</div>
+        <h3>林小满</h3>
+        <div class="role">早餐影像记录者</div>
+        <p>坚持用镜头记录每天的第一顿饭，已更新 380 天。相信好好吃早饭，日子就不会太差。</p>
+      </div>
+      <div class="creator reveal">
+        <div class="bigav">陈</div>
+        <h3>陈屿</h3>
+        <div class="role">城市漫步 · 街景</div>
+        <p>喜欢没有目的地的散步，走遍城市 200 多条老街道，把沿途的光影都收进短片里。</p>
+      </div>
+      <div class="creator reveal">
+        <div class="bigav">苏</div>
+        <h3>苏禾</h3>
+        <div class="role">手作料理 · 甜点</div>
+        <p>厨房是她的工作室，烤箱是她的搭档。分享简单、治愈、不需要复杂技巧的家常甜点。</p>
+      </div>
+      <div class="creator reveal">
+        <div class="bigav">周</div>
+        <h3>周予安</h3>
+        <div class="role">独处时光 · 声音</div>
+        <p>擅长用环境声讲故事。雨声、风声、翻书声，都是他短片里最重要的角色。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="metrics reveal">
+      <div class="metrics-grid">
+        <div class="metric"><b>1,280+</b><span>影像日记作品</span></div>
+        <div class="metric"><b>36.5万</b><span>注册创作者</span></div>
+        <div class="metric"><b>4,900万</b><span>累计播放次数</span></div>
+        <div class="metric"><b>26个</b><span>城市创作小组</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="timeline">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">更新动态</span>
+      <h2>最近在发生什么</h2>
+      <p>新一期主题征集、线下放映、创作者访谈，这里记录着社区里正在生长的故事。</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-date">2024 · 春</div>
+        <div class="tl-body">
+          <div>
+            <h3>主题征集：把春天拍成一首诗</h3>
+            <p>面向全体社区创作者征集 1—5 分钟的影像日记，记录你身边的春日片段。入选作品将在官网首页与线下放映会同步展映。</p>
+          </div>
+          <span class="tl-tag">征集中</span>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-date">2024 · 春</div>
+        <div class="tl-body">
+          <div>
+            <h3>溏心volg 首届线下放映会落幕</h3>
+            <p>在城市的旧剧场里，我们放映了 12 支作品，观众席上有人在片尾字幕亮起时轻轻鼓掌。那晚的光很暖，像刚出锅的溏心。</p>
+          </div>
+          <span class="tl-tag">回顾</span>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-date">2024 · 冬</div>
+        <div class="tl-body">
+          <div>
+            <h3>创作者大赛：我的独家溏心时刻</h3>
+            <p>超过 2,300 位创作者参与投稿，用镜头讲述属于自己的温柔瞬间。最终由社区投票与编辑推荐共同评选出年度作品。</p>
+          </div>
+          <span class="tl-tag">已结束</span>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-date">2023 · 秋</div>
+        <div class="tl-body">
+          <div>
+            <h3>官方模板库与调色预设上线</h3>
+            <p>为降低创作门槛，我们推出了「溏心暖调」系列调色预设和三套片头片尾模板，所有社区成员均可免费使用。</p>
+          </div>
+          <span class="tl-tag">工具</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec partners" id="partners">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">品牌合作</span>
+      <h2>与同频的伙伴同行</h2>
+      <p>我们与重视生活质感的品牌一起，把真实、温和的内容带给更多人。</p>
+    </div>
+    <div class="partner-logos reveal">
+      <div class="plogo">晨光咖啡</div>
+      <div class="plogo">一屋家居</div>
+      <div class="plogo">慢作器物</div>
+      <div class="plogo">四季书店</div>
+      <div class="plogo">手作食堂</div>
+      <div class="plogo">山野旅行</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="join">
+  <div class="wrap">
+    <div class="join reveal">
+      <h2>加入溏心volg，记录你的日常</h2>
+      <p>留下邮箱，我们每周为你寄一封「影像来信」，附上精选短片、创作教程与新一期主题征集。</p>
+      <form id="joinForm">
+        <input type="email" id="emailInput" placeholder="输入你的邮箱地址" required>
+        <button type="submit">订阅影像来信</button>
+      </form>
+      <div class="msg" id="formMsg"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">
+          <span class="dot"></span>
+          <span>溏心volg</span>
+        </div>
+        <p>一个专注慢生活影像日记的视频品牌。记录真实、温柔、刚刚好的日常时刻。</p>
+        <div class="foot-social">
+          <a href="#" aria-label="微博">微博</a>
+          <a href="#" aria-label="微信">微信</a>
+          <a href="#" aria-label="小红书">红书</a>
+          <a href="#" aria-label="哔哩哔哩">B站</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>内容</h4>
+        <ul>
+          <li><a href="#diary">影像日记</a></li>
+          <li><a href="#philosophy">创作理念</a></li>
+          <li><a href="#creators">社区创作者</a></li>
+          <li><a href="#timeline">更新动态</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>参与</h4>
+        <ul>
+          <li><a href="#join">加入社区</a></li>
+          <li><a href="#join">主题征集</a></li>
+          <li><a href="#partners">品牌合作</a></li>
+          <li><a href="#join">影像来信</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>关于</h4>
+        <ul>
+          <li><a href="#">品牌故事</a></li>
+          <li><a href="#">使用条款</a></li>
+          <li><a href="#">隐私政策</a></li>
+          <li><a href="#">联系我们</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2024 溏心volg · 慢生活影像日记</span>
+      <span>用心记录，慢慢生活</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // 移动端菜单
+  var burger = document.getElementById('burger');
+  var navLinks = document.getElementById('navLinks');
+  if (burger) {
+    burger.addEventListener('click', function () {
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+      });
+    });
+  }
+
+  // Hero 播放按钮交互
+  var heroPlay = document.getElementById('heroPlay');
+  if (heroPlay) {
+    heroPlay.addEventListener('click', function () {
+      var circle = heroPlay.querySelector('.circle');
+      circle.style.background = '#f5b942';
+      setTimeout(function () {
+        circle.style.background = 'rgba(255,255,255,.92)';
+      }, 600);
+    });
+  }
+
+  // 滚动出现动画
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // 订阅表单
+  var joinForm = document.getElementById('joinForm');
+  var formMsg = document.getElementById('formMsg');
+  if (joinForm) {
+    joinForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var input = document.getElementById('emailInput');
+      var val = input.value.trim();
+      var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      if (!ok) {
+        formMsg.textContent = '请输入一个有效的邮箱地址。';
+        formMsg.style.color = '#c0735c';
+        return;
+      }
+      formMsg.textContent = '订阅成功，第一封影像来信正在路上。';
+      formMsg.style.color = '#e09a1f';
+      input.value = '';
+    });
+  }
+
+  // 平滑滚动（兼容旧浏览器）
+  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+      var id = this.getAttribute('href');
+      if (id.length > 1) {
+        var target = document.querySelector(id);
+        if (target) {
+          e.preventDefault();
+          var top = target.getBoundingClientRect().top + window.pageYOffset - 76;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>
